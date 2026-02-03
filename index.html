@@ -6,7 +6,7 @@
     <title>C.I.T. - Cybersecurity Education</title>
     <link rel="stylesheet" href="../css/styles.css">
     <!-- AOS Library CSS -->
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
 </head>
 <body>
     <canvas id="matrix-canvas"></canvas>
@@ -42,6 +42,7 @@
             </div>
         </div>
     </div>
+
     <!-- PÁGINA DE AUTENTICACIÓN -->
     <div id="auth-page" class="auth-page">
         <button class="back-to-landing" onclick="backToLanding()">
@@ -148,50 +149,171 @@
             </div>
         </div>
     </div>
-    <!-- HEADER (Solo visible después del login) -->
+
+    <!-- HEADER CON NAVEGACIÓN COLAPSABLE -->
     <header id="main-header">
         <div class="logo">C.I.T.</div>
         <div class="search-container">
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
             <input type="text" id="search-input" class="search-box" placeholder="Buscar en C.I.T..." oninput="handleSearch(this.value)">
             <div id="search-results" class="search-results"></div>
         </div>
-        <nav>
-            <a href="#" onclick="showPage('home')">Menú</a>
-            <a href="#" onclick="showPage('videos')">Videos</a>
-            <a href="#" onclick="showPage('quiz')">Quizz</a>
-            <a href="#" onclick="logout()">Cerrar Sesión</a>
+        <nav class="nav-vertical">
+            <div class="nav-main">
+                <a href="#" onclick="toggleMenu(event)" class="menu-toggle">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    </svg>
+                    Menú
+                    <svg class="arrow-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </a>
+                <div class="menu-dropdown">
+                    <a href="#" onclick="showPage('videos')">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                        </svg>
+                        Videos
+                    </a>
+                    <a href="#" onclick="showPage('quiz')">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        Quizz
+                    </a>
+                </div>
+            </div>
+            <a href="#" onclick="logout()" class="nav-logout">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                Cerrar Sesión
+            </a>
         </nav>
     </header>
 
     <!-- Home Page -->
     <div id="home" class="page">
         <div class="container">
+            
+            <!-- HERO SECTION -->
+            <div class="hero-section" data-aos="fade-up">
+                <h1 class="hero-title">BIENVENIDO A C.I.T.</h1>
+                <p class="hero-subtitle">Tu Centro de Entrenamiento en Ciberseguridad</p>
+                
+                <!-- Terminal Simulation -->
+                <div class="hero-visual">
+                    <div class="terminal-simulation">
+                        <div class="terminal-header">
+                            <span class="terminal-dot red"></span>
+                            <span class="terminal-dot yellow"></span>
+                            <span class="terminal-dot green"></span>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">root@cit:~$</span>
+                                <span class="terminal-command typing-animation">initializing_security_training...</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-output">✓ Loading modules...</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-output">✓ System ready</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Estadísticas con iconos SVG -->
+                <div class="hero-stats">
+                    <div class="stat" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="stat-icon-container">
+                            <svg class="stat-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                <path d="M12 8v4"></path>
+                                <path d="M12 16h.01"></path>
+                            </svg>
+                        </div>
+                        <span class="stat-number">12</span>
+                        <span class="stat-label">Conceptos</span>
+                    </div>
+                    <div class="stat" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="stat-icon-container">
+                            <svg class="stat-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                            </svg>
+                        </div>
+                        <span class="stat-number">8</span>
+                        <span class="stat-label">Herramientas</span>
+                    </div>
+                    <div class="stat" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="stat-icon-container">
+                            <svg class="stat-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                            </svg>
+                        </div>
+                        <span class="stat-number">20</span>
+                        <span class="stat-label">Preguntas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARDS PRINCIPALES CON ICONOS SVG -->
             <div class="cards-grid">
                 <div class="card" onclick="showPage('intro')" data-aos="fade-up" data-aos-delay="100">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%23000' width='400' height='200'/%3E%3Ctext x='50%25' y='50%25' font-family='Courier' font-size='24' fill='%2300ffff' text-anchor='middle' dominant-baseline='middle'%3EINTRODUCCIÓN%3C/text%3E%3C/svg%3E" class="card-image" alt="Introducción">
                     <div class="card-content">
+                        <div class="card-icon-svg">
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="9" y1="3" x2="9" y2="21"></line>
+                            </svg>
+                        </div>
                         <h3 class="card-title">INTRODUCCIÓN</h3>
-                        <p class="card-text">EN ESTA SECCIÓN, EXPLORAREMOS LA ESENCIA VITAL DE LA CIBERSEGURIDAD EN EL MUNDO DIGITAL CONTEMPORÁNEO. DESDE LA PROTECCIÓN DE DATOS PERSONALES HASTA LA DEFENSA DE INFRAESTRUCTURAS CRÍTICAS, LA CIBERSEGURIDAD SE ERIGE COMO UNA PROFESIÓN INDISPENSABLE CONTRA UNA AMPLIA GAMA DE AMENAZAS VIRTUALES.</p>
+                        <p class="card-text">Aprende los fundamentos de la ciberseguridad moderna. Protección de datos, defensa de infraestructuras críticas y prevención de amenazas.</p>
+                        <div class="card-arrow">→</div>
                     </div>
                 </div>
 
                 <div class="card" onclick="showPage('videos')" data-aos="fade-up" data-aos-delay="200">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%23001a33' width='400' height='200'/%3E%3Ctext x='50%25' y='50%25' font-family='Courier' font-size='20' fill='%2300ff41' text-anchor='middle' dominant-baseline='middle'%3E¿QUÉ ES EL HACKING?%3C/text%3E%3C/svg%3E" class="card-image" alt="Hacking">
                     <div class="card-content">
-                        <h3 class="card-title">¿QUE ES EL HACKING?</h3>
-                        <p class="card-text">DESCUBRE EL MUNDO DEL HACKING Y LO QUE LOS PROFESIONALES DE SEGURIDAD INFORMÁTICA UTILIZAN SUS HABILIDADES TÉCNICAS PARA IDENTIFICAR VULNERABILIDADES EN SISTEMAS INFORMÁTICOS, REDES O APLICACIONES CON EL OBJETIVO DE MEJORAR LA SEGURIDAD.</p>
+                        <div class="card-icon-svg">
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                        </div>
+                        <h3 class="card-title">¿QUÉ ES EL HACKING?</h3>
+                        <p class="card-text">Descubre el hacking ético y cómo los profesionales de seguridad identifican vulnerabilidades para mejorar la protección de sistemas.</p>
+                        <div class="card-arrow">→</div>
                     </div>
                 </div>
 
                 <div class="card" onclick="showPage('quiz')" data-aos="fade-up" data-aos-delay="300">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Crect fill='%23000' width='400' height='200'/%3E%3Ctext x='50%25' y='50%25' font-family='Courier' font-size='20' fill='%23ff00ff' text-anchor='middle' dominant-baseline='middle'%3EQUIZZ%3C/text%3E%3C/svg%3E" class="card-image" alt="Quiz">
                     <div class="card-content">
+                        <div class="card-icon-svg">
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M9 11l3 3L22 4"></path>
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                            </svg>
+                        </div>
                         <h3 class="card-title">QUIZZ INTERACTIVO</h3>
-                        <p class="card-text">PON A PRUEBA TUS CONOCIMIENTOS EN CIBERSEGURIDAD CON NUESTRO QUIZZ PROGRESIVO. DESDE CONCEPTOS BÁSICOS HASTA DESAFÍOS AVANZADOS. ¿ESTÁS LISTO PARA DEMOSTRAR QUE ERES UN EXPERTO?</p>
+                        <p class="card-text">Pon a prueba tus conocimientos con nuestro quizz progresivo. 20 preguntas en 3 niveles de dificultad. ¿Estás listo?</p>
+                        <div class="card-arrow">→</div>
                     </div>
                 </div>
             </div>
-            <!-- SECCIÓN DE HERRAMIENTAS RECOMENDADAS -->
+
+            <!-- HERRAMIENTAS RECOMENDADAS -->
             <div class="tools-section" data-aos="fade-up">
                 <h2 class="tools-title">
                     <svg class="section-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -202,94 +324,122 @@
                 
                 <div class="tools-grid">
                     <div class="tool-card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="tool-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <path d="M12 6v6l4 2"></path>
+                        <div class="tool-header">
+                            <svg class="tool-icon-svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.35-4.35"></path>
                             </svg>
+                            <h3 class="tool-name">VirusTotal</h3>
                         </div>
-                        <h3 class="tool-name">VirusTotal</h3>
                         <p class="tool-description">Escanea archivos y URLs en busca de malware utilizando múltiples motores antivirus.</p>
+                        <div class="tool-tag">Análisis</div>
                     </div>
 
                     <div class="tool-card" data-aos="fade-up" data-aos-delay="200">
-                        <div class="tool-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <div class="tool-header">
+                            <svg class="tool-icon-svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                             </svg>
+                            <h3 class="tool-name">LastPass</h3>
                         </div>
-                        <h3 class="tool-name">LastPass</h3>
                         <p class="tool-description">Gestor de contraseñas seguro que almacena y encripta todas tus credenciales.</p>
+                        <div class="tool-tag">Gestión</div>
                     </div>
 
                     <div class="tool-card" data-aos="fade-up" data-aos-delay="300">
-                        <div class="tool-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <div class="tool-header">
+                            <svg class="tool-icon-svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                             </svg>
+                            <h3 class="tool-name">Malwarebytes</h3>
                         </div>
-                        <h3 class="tool-name">Malwarebytes</h3>
                         <p class="tool-description">Antivirus avanzado especializado en detección y eliminación de malware moderno.</p>
+                        <div class="tool-tag">Protección</div>
                     </div>
 
                     <div class="tool-card" data-aos="fade-up" data-aos-delay="400">
-                        <div class="tool-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <div class="tool-header">
+                            <svg class="tool-icon-svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                                 <polyline points="22,6 12,13 2,6"></polyline>
                             </svg>
+                            <h3 class="tool-name">ProtonMail</h3>
                         </div>
-                        <h3 class="tool-name">ProtonMail</h3>
                         <p class="tool-description">Servicio de correo electrónico cifrado de extremo a extremo para máxima privacidad.</p>
+                        <div class="tool-tag">Privacidad</div>
                     </div>
 
                     <div class="tool-card" data-aos="fade-up" data-aos-delay="500">
-                        <div class="tool-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="3"></circle>
-                                <path d="M12 1v6m0 6v6M5.6 5.6l4.2 4.2m4.2 4.2l4.2 4.2M1 12h6m6 0h6M5.6 18.4l4.2-4.2m4.2-4.2l4.2-4.2"></path>
+                        <div class="tool-header">
+                            <svg class="tool-icon-svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"></line>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
                             </svg>
+                            <h3 class="tool-name">Wireshark</h3>
                         </div>
-                        <h3 class="tool-name">Wireshark</h3>
                         <p class="tool-description">Analizador de protocolos de red para capturar y examinar tráfico de datos en tiempo real.</p>
+                        <div class="tool-tag">Análisis</div>
                     </div>
 
                     <div class="tool-card" data-aos="fade-up" data-aos-delay="600">
-                        <div class="tool-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                                <line x1="8" y1="21" x2="16" y2="21"></line>
-                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                        <div class="tool-header">
+                            <svg class="tool-icon-svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+                                <rect x="9" y="9" width="6" height="6"></rect>
+                                <line x1="9" y1="1" x2="9" y2="4"></line>
+                                <line x1="15" y1="1" x2="15" y2="4"></line>
+                                <line x1="9" y1="20" x2="9" y2="23"></line>
+                                <line x1="15" y1="20" x2="15" y2="23"></line>
+                                <line x1="20" y1="9" x2="23" y2="9"></line>
+                                <line x1="20" y1="14" x2="23" y2="14"></line>
+                                <line x1="1" y1="9" x2="4" y2="9"></line>
+                                <line x1="1" y1="14" x2="4" y2="14"></line>
                             </svg>
+                            <h3 class="tool-name">Kali Linux</h3>
                         </div>
-                        <h3 class="tool-name">Kali Linux</h3>
                         <p class="tool-description">Distribución Linux especializada en pentesting y auditorías de seguridad avanzadas.</p>
+                        <div class="tool-tag">Sistema</div>
                     </div>
 
                     <div class="tool-card" data-aos="fade-up" data-aos-delay="700">
-                        <div class="tool-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="16 18 22 12 16 6"></polyline>
-                                <polyline points="8 6 2 12 8 18"></polyline>
+                        <div class="tool-header">
+                            <svg class="tool-icon-svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
                             </svg>
+                            <h3 class="tool-name">Burp Suite</h3>
                         </div>
-                        <h3 class="tool-name">Burp Suite</h3>
                         <p class="tool-description">Plataforma integrada para realizar pruebas de seguridad en aplicaciones web.</p>
+                        <div class="tool-tag">Pentesting</div>
                     </div>
 
                     <div class="tool-card" data-aos="fade-up" data-aos-delay="800">
-                        <div class="tool-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        <div class="tool-header">
+                            <svg class="tool-icon-svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
                             </svg>
+                            <h3 class="tool-name">Metasploit</h3>
                         </div>
-                        <h3 class="tool-name">Metasploit</h3>
                         <p class="tool-description">Framework de pentesting para desarrollar, probar y ejecutar exploits de seguridad.</p>
+                        <div class="tool-tag">Framework</div>
                     </div>
                 </div>
             </div>
-            <!-- NUEVA SECCIÓN DE INFORMACIÓN AMPLIADA -->
+
+            <!-- QUOTE SECTION -->
+            <div class="quote-section" data-aos="fade-up">
+                <svg class="quote-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path>
+                    <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path>
+                </svg>
+                <blockquote>
+                    "La ciberseguridad no es un producto, sino un proceso."
+                    <cite>— Bruce Schneier</cite>
+                </blockquote>
+            </div>
+
+            <!-- INFO CARDS -->
             <div class="cyber-info-section" data-aos="fade-up">
                 <h2 class="cyber-info-title">
                     <svg class="section-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -299,216 +449,339 @@
                 </h2>
                 <div class="info-grid">
                     <div class="info-card" id="info-criptografia" data-aos="fade-up" data-aos-delay="100">
-                        <div class="info-card-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
+                        <div class="info-card-header">
+                            <svg class="info-icon-svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                             </svg>
+                            <h3 class="info-card-title">Criptografía</h3>
                         </div>
-                        <h3 class="info-card-title">Criptografía</h3>
-                        <p class="info-card-text">Técnica de protección de información mediante algoritmos matemáticos que convierten datos legibles en código cifrado. Utiliza algoritmos como AES-256, RSA y SHA para proteger comunicaciones, transacciones bancarias y datos sensibles. Es la base de SSL/TLS, firmas digitales y blockchain.</p>
+                        <p class="info-card-text">Protección de información mediante algoritmos matemáticos. Utiliza AES-256, RSA y SHA para proteger comunicaciones, transacciones y datos sensibles.</p>
+                        <div class="info-badge">Fundamental</div>
                     </div>
 
                     <div class="info-card" id="info-firewall" data-aos="fade-up" data-aos-delay="200">
-                        <div class="info-card-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <div class="info-card-header">
+                            <svg class="info-icon-svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                             </svg>
+                            <h3 class="info-card-title">Firewall</h3>
                         </div>
-                        <h3 class="info-card-title">Firewall</h3>
-                        <p class="info-card-text">Sistema de seguridad de red que monitorea y controla el tráfico entrante y saliente basándose en reglas de seguridad predeterminadas. Actúa como barrera entre redes confiables y no confiables, bloqueando accesos no autorizados mientras permite comunicaciones legítimas.</p>
+                        <p class="info-card-text">Sistema de seguridad que monitorea y controla el tráfico de red. Actúa como barrera entre redes confiables y no confiables.</p>
+                        <div class="info-badge">Protección</div>
                     </div>
 
                     <div class="info-card" id="info-phishing" data-aos="fade-up" data-aos-delay="300">
-                        <div class="info-card-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <div class="info-card-header">
+                            <svg class="info-icon-svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                                 <polyline points="22,6 12,13 2,6"></polyline>
                             </svg>
+                            <h3 class="info-card-title">Phishing</h3>
                         </div>
-                        <h3 class="info-card-title">Phishing</h3>
-                        <p class="info-card-text">Ataque de ingeniería social que engaña a usuarios para revelar información confidencial mediante correos o sitios web falsos. Los atacantes se hacen pasar por entidades legítimas para robar credenciales, datos bancarios o información personal. Es una de las amenazas más comunes.</p>
+                        <p class="info-card-text">Ataque de ingeniería social mediante correos o sitios falsos. Los atacantes se hacen pasar por entidades legítimas para robar credenciales.</p>
+                        <div class="info-badge">Amenaza</div>
                     </div>
 
                     <div class="info-card" id="info-malware" data-aos="fade-up" data-aos-delay="400">
-                        <div class="info-card-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
-                                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
-                                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
-                            </svg>
-                        </div>
-                        <h3 class="info-card-title">Malware</h3>
-                        <p class="info-card-text">Software malicioso diseñado para dañar, explotar o tomar control no autorizado de sistemas. Incluye virus, troyanos, ransomware, spyware, adware, rootkits y gusanos. Cada tipo tiene métodos de propagación y objetivos específicos para comprometer la seguridad.</p>
-                    </div>
-
-                    <div class="info-card" id="info-2fa" data-aos="fade-up" data-aos-delay="500">
-                        <div class="info-card-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="5" y="11" width="14" height="10" rx="2" ry="2"></rect>
-                                <circle cx="12" cy="16" r="1"></circle>
-                                <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
-                            </svg>
-                        </div>
-                        <h3 class="info-card-title">Autenticación 2FA</h3>
-                        <p class="info-card-text">Método de seguridad que requiere dos formas diferentes de verificación de identidad. Combina algo que conoces (contraseña) con algo que posees (teléfono, token) o algo que eres (huella dactilar, reconocimiento facial). Reduce drásticamente el riesgo de accesos no autorizados.</p>
-                    </div>
-
-                    <div class="info-card" id="info-cloud" data-aos="fade-up" data-aos-delay="600">
-                        <div class="info-card-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="info-card-title">Seguridad en la Nube</h3>
-                        <p class="info-card-text">Conjunto de políticas, tecnologías y controles para proteger datos, aplicaciones e infraestructura en cloud computing. Incluye cifrado de datos, gestión de identidades, segmentación de red, auditorías de seguridad y cumplimiento de regulaciones como GDPR.</p>
-                    </div>
-                    <div class="info-card" id="info-pentesting" data-aos="fade-up" data-aos-delay="700">
-                        <div class="info-card-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <path d="m21 21-4.35-4.35"></path>
-                            </svg>
-                        </div>
-                        <h3 class="info-card-title">Pentesting</h3>
-                        <p class="info-card-text">Pruebas de penetración autorizadas que simulan ataques cibernéticos reales para identificar vulnerabilidades antes que los atacantes maliciosos. Utiliza herramientas como Metasploit, Burp Suite y Nmap para evaluar la seguridad de sistemas, redes y aplicaciones.</p>
-                    </div>
-
-                    <div class="info-card" id="info-backup" data-aos="fade-up" data-aos-delay="800">
-                        <div class="info-card-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                                <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
-                                <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
-                                <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
-                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                            </svg>
-                        </div>
-                        <h3 class="info-card-title">Backup & Recovery</h3>
-                        <p class="info-card-text">Proceso de crear copias de seguridad de datos críticos y establecer procedimientos para restaurarlos en caso de pérdida, corrupción o ataque ransomware. Sigue la regla 3-2-1: 3 copias, 2 medios diferentes, 1 copia fuera del sitio.</p>
-                    </div>
-
-                    <div class="info-card" id="info-vpn" data-aos="fade-up" data-aos-delay="900">
-                        <div class="info-card-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                            </svg>
-                        </div>
-                        <h3 class="info-card-title">VPN</h3>
-                        <p class="info-card-text">Red Privada Virtual que crea conexiones seguras y cifradas sobre redes menos seguras como Internet. Protege la privacidad ocultando la dirección IP, cifra el tráfico de datos y permite acceso remoto seguro a recursos corporativos desde cualquier ubicación.</p>
-                    </div>
-
-                    <div class="info-card" id="info-ddos" data-aos="fade-up" data-aos-delay="1000">
-                        <div class="info-card-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                            </svg>
-                        </div>
-                        <h3 class="info-card-title">DDoS Attack</h3>
-                        <p class="info-card-text">Ataque de Denegación de Servicio Distribuido que sobrecarga servidores con tráfico masivo desde múltiples fuentes para hacerlos inaccesibles. Utiliza botnets de dispositivos comprometidos para generar millones de solicitudes simultáneas que colapsan la infraestructura.</p>
-                    </div>
-
-                    <div class="info-card" id="info-zerotrust" data-aos="fade-up" data-aos-delay="1100">
-                        <div class="info-card-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                                <path d="M9 12l2 2 4-4"></path>
-                            </svg>
-                        </div>
-                        <h3 class="info-card-title">Zero Trust</h3>
-                        <p class="info-card-text">Modelo de seguridad que no confía en ningún usuario o dispositivo por defecto, ni dentro ni fuera del perímetro de red. Requiere verificación continua de identidad y autorización para cada acceso a recursos, aplicando el principio de mínimo privilegio.</p>
-                    </div>
-
-                    <div class="info-card" id="info-siem" data-aos="fade-up" data-aos-delay="1200">
-                        <div class="info-card-icon">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                            </svg>
-                        </div>
-                        <h3 class="info-card-title">SIEM</h3>
-                        <p class="info-card-text">Security Information and Event Management recopila, analiza y correlaciona logs de seguridad de múltiples fuentes en tiempo real. Identifica patrones anómalos, detecta amenazas avanzadas y facilita la respuesta a incidentes mediante alertas automatizadas y análisis forense.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Introduction Page -->
-    <div id="intro" class="page">
-        <div class="container">
-            <a href="#" class="back-btn" onclick="showPage('home')">← Volver</a>
-            <h1 class="page-title">Introducción a la Ciberseguridad</h1>
-            
-            <div class="intro-content">
-                <div class="intro-header-card" data-aos="fade-up">
-                    <div class="intro-icon">
-                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                            <path d="M12 8v4"></path>
-                            <path d="M12 16h.01"></path>
-                        </svg>
-                    </div>
-                    <h2 class="intro-subtitle">¿Qué es la Ciberseguridad?</h2>
-                </div>
-                
-                <div class="intro-description">
-                    <div class="intro-section" data-aos="fade-up" data-aos-delay="100">
-                        <h3>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <path d="M12 6v6l4 2"></path>
-                            </svg>
-                            Definición
-                        </h3>
-                        <p>La ciberseguridad es un campo que se centra en la protección de sistemas informáticos, redes, dispositivos y datos contra el acceso no autorizado, ataques maliciosos y otros tipos de amenazas cibernéticas. Con la creciente dependencia de la tecnología en todos los aspectos de la vida moderna, desde la banca en línea hasta las redes sociales y el Internet de las cosas (IoT), la ciberseguridad se ha vuelto fundamental para garantizar la seguridad y privacidad de la información.</p>
-                    </div>
-
-                    <div class="intro-section" data-aos="fade-up" data-aos-delay="200">
-                        <h3>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <div class="info-card-header">
+                            <svg class="info-icon-svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
                                 <line x1="12" y1="9" x2="12" y2="13"></line>
                                 <line x1="12" y1="17" x2="12.01" y2="17"></line>
                             </svg>
-                            Amenazas Cibernéticas
-                        </h3>
-                        <p>Las amenazas incluyen virus, malware, ransomware, phishing, ataques de denegación de servicio (DoS), hacking, ingeniería social y otros. Cada una de estas amenazas tiene diferentes métodos y objetivos, pero todas buscan comprometer la seguridad o la integridad de los sistemas.</p>
+                            <h3 class="info-card-title">Malware</h3>
+                        </div>
+                        <p class="info-card-text">Software malicioso diseñado para dañar sistemas. Incluye virus, troyanos, ransomware, spyware y rootkits con diferentes objetivos.</p>
+                        <div class="info-badge">Amenaza</div>
                     </div>
 
-                    <div class="intro-section" data-aos="fade-up" data-aos-delay="300">
-                        <h3>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
+                    <div class="info-card" id="info-2fa" data-aos="fade-up" data-aos-delay="500">
+                        <div class="info-card-header">
+                            <svg class="info-icon-svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                                <line x1="12" y1="18" x2="12.01" y2="18"></line>
                             </svg>
-                            Principios Fundamentales (CIA)
-                        </h3>
-                        <p>La ciberseguridad se basa en la tríada CIA:</p>
-                        <ul class="intro-list">
-                            <li><strong>Confidencialidad:</strong> Proteger información sensible del acceso no autorizado.</li>
-                            <li><strong>Integridad:</strong> Mantener la exactitud y completitud de los datos.</li>
-                            <li><strong>Disponibilidad:</strong> Asegurar que los recursos estén accesibles cuando se necesiten.</li>
-                        </ul>
+                            <h3 class="info-card-title">Autenticación 2FA</h3>
+                        </div>
+                        <p class="info-card-text">Método de seguridad con dos verificaciones. Combina contraseña, teléfono, token o biometría para reducir accesos no autorizados.</p>
+                        <div class="info-badge">Seguridad</div>
                     </div>
 
-                    <div class="intro-importance" data-aos="fade-up" data-aos-delay="400">
-                        <h3>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    <div class="info-card" id="info-cloud" data-aos="fade-up" data-aos-delay="600">
+                        <div class="info-card-header">
+                            <svg class="info-icon-svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
                             </svg>
-                            Importancia en el Mundo Digital
-                        </h3>
-                        <p>En la era digital actual, la ciberseguridad es esencial para proteger tanto a individuos como a organizaciones. Los ciberataques pueden resultar en pérdidas financieras masivas, robo de identidad, violaciones de privacidad y daños a la reputación. Por ello, implementar medidas robustas de ciberseguridad no es opcional, sino una necesidad crítica.</p>
+                            <h3 class="info-card-title">Seguridad en la Nube</h3>
+                        </div>
+                        <p class="info-card-text">Políticas y controles para proteger datos en cloud computing. Incluye cifrado, gestión de identidades y cumplimiento de regulaciones.</p>
+                        <div class="info-badge">Cloud</div>
+                    </div>
+
+                    <div class="info-card" id="info-pentesting" data-aos="fade-up" data-aos-delay="700">
+                        <div class="info-card-header">
+                            <svg class="info-icon-svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <circle cx="12" cy="12" r="6"></circle>
+                                <circle cx="12" cy="12" r="2"></circle>
+                            </svg>
+                            <h3 class="info-card-title">Pentesting</h3>
+                        </div>
+                        <p class="info-card-text">Pruebas de penetración autorizadas que simulan ataques reales. Utiliza Metasploit, Burp Suite y Nmap para evaluar seguridad.</p>
+                        <div class="info-badge">Testing</div>
+                    </div>
+
+                    <div class="info-card" id="info-backup" data-aos="fade-up" data-aos-delay="800">
+                        <div class="info-card-header">
+                            <svg class="info-icon-svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <h3 class="info-card-title">Backup & Recovery</h3>
+                        </div>
+                        <p class="info-card-text">Copias de seguridad de datos críticos. Sigue la regla 3-2-1: 3 copias, 2 medios diferentes, 1 copia fuera del sitio.</p>
+                        <div class="info-badge">Respaldo</div>
+                    </div>
+
+                    <div class="info-card" id="info-vpn" data-aos="fade-up" data-aos-delay="900">
+                        <div class="info-card-header">
+                            <svg class="info-icon-svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
+                            <h3 class="info-card-title">VPN</h3>
+                        </div>
+                        <p class="info-card-text">Red Privada Virtual con conexiones cifradas. Protege privacidad ocultando IP y permite acceso remoto seguro a recursos corporativos.</p>
+                        <div class="info-badge">Privacidad</div>
+                    </div>
+
+                    <div class="info-card" id="info-ddos" data-aos="fade-up" data-aos-delay="1000">
+                        <div class="info-card-header">
+                            <svg class="info-icon-svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                <polyline points="17 6 23 6 23 12"></polyline>
+                            </svg>
+                            <h3 class="info-card-title">DDoS Attack</h3>
+                        </div>
+                        <p class="info-card-text">Ataque de Denegación de Servicio Distribuido. Sobrecarga servidores con tráfico masivo desde múltiples fuentes usando botnets.</p>
+                        <div class="info-badge">Amenaza</div>
+                    </div>
+
+                    <div class="info-card" id="info-zerotrust" data-aos="fade-up" data-aos-delay="1100">
+                        <div class="info-card-header">
+                            <svg class="info-icon-svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+                            </svg>
+                            <h3 class="info-card-title">Zero Trust</h3>
+                        </div>
+                        <p class="info-card-text">Modelo que no confía por defecto. Requiere verificación continua de identidad y autorización aplicando el principio de mínimo privilegio.</p>
+                        <div class="info-badge">Modelo</div>
+                    </div>
+
+                    <div class="info-card" id="info-siem" data-aos="fade-up" data-aos-delay="1200">
+                        <div class="info-card-header">
+                            <svg class="info-icon-svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="3" y1="9" x2="21" y2="9"></line>
+                                <line x1="9" y1="21" x2="9" y2="9"></line>
+                            </svg>
+                            <h3 class="info-card-title">SIEM</h3>
+                        </div>
+                        <p class="info-card-text">Security Information and Event Management. Recopila y analiza logs de seguridad en tiempo real para detectar amenazas avanzadas.</p>
+                        <div class="info-badge">Monitoreo</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Videos Gallery Page -->
+<!-- Introduction Page SIN "Roles Profesionales" -->
+    <div id="intro" class="page">
+        <div class="container">
+            <a href="#" class="back-btn" onclick="showPage('home')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Volver
+            </a>
+            <h1 class="page-title">Introducción a la Ciberseguridad</h1>
+            
+            <div class="intro-content">
+                <div class="intro-header-card" data-aos="fade-up">
+                    <div class="intro-icon-large">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="intro-subtitle">¿Qué es la Ciberseguridad?</h2>
+                    <p class="intro-lead">La protección esencial en la era digital</p>
+                </div>
+                
+                <div class="intro-description">
+                    <!-- SECCIÓN 1: Definición -->
+                    <div class="intro-section" data-aos="fade-up" data-aos-delay="100">
+                        <div class="intro-section-header">
+                            <svg class="intro-section-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                            </svg>
+                            <h3>Definición</h3>
+                        </div>
+                        <p>La ciberseguridad es un campo que se centra en la protección de sistemas informáticos, redes, dispositivos y datos contra el acceso no autorizado, ataques maliciosos y otros tipos de amenazas cibernéticas.</p>
+                        <p>Con la creciente dependencia de la tecnología en todos los aspectos de la vida moderna, desde la banca en línea hasta las redes sociales y el Internet de las cosas (IoT), la ciberseguridad se ha vuelto fundamental para garantizar la seguridad y privacidad de la información.</p>
+                    </div>
+
+                    <!-- SECCIÓN 2: Amenazas Cibernéticas -->
+                    <div class="intro-section" data-aos="fade-up" data-aos-delay="200">
+                        <div class="intro-section-header">
+                            <svg class="intro-section-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                                <line x1="12" y1="9" x2="12" y2="13"></line>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                            </svg>
+                            <h3>Amenazas Cibernéticas</h3>
+                        </div>
+                        <p>Las amenazas incluyen virus, malware, ransomware, phishing, ataques de denegación de servicio (DoS), hacking, ingeniería social y otros. Cada una de estas amenazas tiene diferentes métodos y objetivos, pero todas buscan comprometer la seguridad o la integridad de los sistemas.</p>
+                        <div class="threat-tags">
+                            <span class="threat-tag">Virus</span>
+                            <span class="threat-tag">Ransomware</span>
+                            <span class="threat-tag">Phishing</span>
+                            <span class="threat-tag">DDoS</span>
+                            <span class="threat-tag">Malware</span>
+                            <span class="threat-tag">Spyware</span>
+                            <span class="threat-tag">Trojanos</span>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN 3: Principios CIA -->
+                    <div class="intro-section" data-aos="fade-up" data-aos-delay="300">
+                        <div class="intro-section-header">
+                            <svg class="intro-section-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                <polyline points="2 17 12 22 22 17"></polyline>
+                                <polyline points="2 12 12 17 22 12"></polyline>
+                            </svg>
+                            <h3>Principios Fundamentales (CIA)</h3>
+                        </div>
+                        <p>La ciberseguridad se basa en la tríada CIA, tres pilares fundamentales que guían todas las estrategias de seguridad:</p>
+                        <div class="cia-grid">
+                            <div class="cia-item">
+                                <svg class="cia-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                                <h4>Confidencialidad</h4>
+                                <p>Proteger información sensible del acceso no autorizado mediante cifrado, autenticación y control de accesos.</p>
+                            </div>
+                            <div class="cia-item">
+                                <svg class="cia-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                                <h4>Integridad</h4>
+                                <p>Mantener la exactitud y completitud de los datos, asegurando que no sean modificados de forma no autorizada.</p>
+                            </div>
+                            <div class="cia-item">
+                                <svg class="cia-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                </svg>
+                                <h4>Disponibilidad</h4>
+                                <p>Asegurar que los recursos estén accesibles cuando se necesiten, evitando interrupciones del servicio.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN 4: Capas de Seguridad -->
+                    <div class="intro-section" data-aos="fade-up" data-aos-delay="400">
+                        <div class="intro-section-header">
+                            <svg class="intro-section-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                <polyline points="2 17 12 22 22 17"></polyline>
+                                <polyline points="2 12 12 17 22 12"></polyline>
+                            </svg>
+                            <h3>Capas de Seguridad</h3>
+                        </div>
+                        <p>La ciberseguridad efectiva se implementa en múltiples capas, cada una protegiendo diferentes aspectos del ecosistema digital:</p>
+                        <div class="layers-grid">
+                            <div class="layer-item">
+                                <strong>Capa Física:</strong> Protección de hardware, servidores y centros de datos contra accesos físicos no autorizados.
+                            </div>
+                            <div class="layer-item">
+                                <strong>Capa de Red:</strong> Firewalls, sistemas de detección de intrusiones (IDS) y segmentación de red para controlar el tráfico.
+                            </div>
+                            <div class="layer-item">
+                                <strong>Capa de Aplicación:</strong> Seguridad en el código, validación de entradas y protección contra vulnerabilidades como SQL Injection.
+                            </div>
+                            <div class="layer-item">
+                                <strong>Capa de Datos:</strong> Cifrado de información sensible, backups regulares y control de acceso basado en roles.
+                            </div>
+                            <div class="layer-item">
+                                <strong>Capa Humana:</strong> Capacitación de usuarios, políticas de seguridad y concienciación sobre amenazas de ingeniería social.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN 5: Metodologías y Frameworks -->
+                    <div class="intro-section" data-aos="fade-up" data-aos-delay="500">
+                        <div class="intro-section-header">
+                            <svg class="intro-section-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            <h3>Metodologías y Frameworks</h3>
+                        </div>
+                        <p>Las organizaciones utilizan frameworks reconocidos internacionalmente para estructurar sus programas de ciberseguridad:</p>
+                        <div class="frameworks-list">
+                            <div class="framework-item">
+                                <h4>NIST Cybersecurity Framework</h4>
+                                <p>Marco de trabajo del Instituto Nacional de Estándares y Tecnología de EE.UU. que proporciona directrices para gestionar riesgos de ciberseguridad.</p>
+                            </div>
+                            <div class="framework-item">
+                                <h4>ISO/IEC 27001</h4>
+                                <p>Estándar internacional para sistemas de gestión de seguridad de la información (SGSI).</p>
+                            </div>
+                            <div class="framework-item">
+                                <h4>OWASP Top 10</h4>
+                                <p>Lista de las 10 vulnerabilidades más críticas en aplicaciones web, actualizada regularmente por la comunidad de seguridad.</p>
+                            </div>
+                            <div class="framework-item">
+                                <h4>CIS Controls</h4>
+                                <p>Conjunto de mejores prácticas priorizadas para defenderse contra las amenazas cibernéticas más comunes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Videos Gallery Page SIN HORAS -->
     <div id="videos" class="page">
         <div class="container">
-            <a href="#" class="back-btn" onclick="showPage('home')">← Volver</a>
-            <h1 class="page-title">Galería de Videos Educativos</h1>
+            <a href="#" class="back-btn" onclick="showPage('home')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Volver
+            </a>
+            <h1 class="page-title">
+                <svg class="section-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                </svg>
+                Galería de Videos Educativos
+            </h1>
+            <p class="page-subtitle">Aprende ciberseguridad con contenido visual de calidad</p>
             
             <div class="video-grid">
                 <!-- Video 1 -->
@@ -516,7 +789,12 @@
                     <div class="video-thumbnail">
                         <iframe width="100%" height="200" src="https://www.youtube.com/embed/M1Fd3ierEjg" title="Video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                    <div class="video-title">Video Educativo 1</div>
+                    <div class="video-info">
+                        <div class="video-title">Fundamentos de Ciberseguridad</div>
+                        <div class="video-meta">
+                            <span class="video-level level-basic">🟢 Básico</span>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Video 2 -->
@@ -524,7 +802,12 @@
                     <div class="video-thumbnail">
                         <iframe width="100%" height="200" src="https://www.youtube.com/embed/Y4qh89KvRtM" title="Video 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                    <div class="video-title">Video Educativo 2</div>
+                    <div class="video-info">
+                        <div class="video-title">Hacking Ético Explicado</div>
+                        <div class="video-meta">
+                            <span class="video-level level-intermediate">🟡 Intermedio</span>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Video 3 -->
@@ -532,7 +815,12 @@
                     <div class="video-thumbnail">
                         <iframe width="100%" height="200" src="https://www.youtube.com/embed/XsmTsjJvotc" title="Video 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                    <div class="video-title">Video Educativo 3</div>
+                    <div class="video-info">
+                        <div class="video-title">Ataques de Phishing</div>
+                        <div class="video-meta">
+                            <span class="video-level level-basic">🟢 Básico</span>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Video 4 -->
@@ -540,7 +828,12 @@
                     <div class="video-thumbnail">
                         <iframe width="100%" height="200" src="https://www.youtube.com/embed/ehNcFmhS7-I" title="Video 4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                    <div class="video-title">Video Educativo 4</div>
+                    <div class="video-info">
+                        <div class="video-title">Criptografía Moderna</div>
+                        <div class="video-meta">
+                            <span class="video-level level-advanced">🔴 Avanzado</span>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Video 5 -->
@@ -548,7 +841,12 @@
                     <div class="video-thumbnail">
                         <iframe width="100%" height="200" src="https://www.youtube.com/embed/c7oSadqmYwc" title="Video 5" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                    <div class="video-title">Video Educativo 5</div>
+                    <div class="video-info">
+                        <div class="video-title">Seguridad en Redes</div>
+                        <div class="video-meta">
+                            <span class="video-level level-intermediate">🟡 Intermedio</span>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Video 6 -->
@@ -556,85 +854,108 @@
                     <div class="video-thumbnail">
                         <iframe width="100%" height="200" src="https://www.youtube.com/embed/Dlu6yvnZ6NY" title="Video 6" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                    <div class="video-title">Video Educativo 6</div>
+                    <div class="video-info">
+                        <div class="video-title">Malware y Protección</div>
+                        <div class="video-meta">
+                            <span class="video-level level-basic">🟢 Básico</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Quiz Page -->
+
+    <!-- Quiz Page COMPACTO CON MENÚ COLAPSABLE -->
     <div id="quiz" class="page">
-        <div class="container">
-            <a href="#" class="back-btn" onclick="showPage('home')">← Volver</a>
-            <h1 class="page-title">
-                <svg class="section-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <div class="container quiz-compact">
+            <a href="#" class="back-btn" onclick="showPage('home')">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Volver
+            </a>
+            
+            <!-- SCROLL INDICATOR DERECHO -->
+            <div class="scroll-indicator-right">
+                <div class="scroll-line"></div>
+                <div class="scroll-thumb"></div>
+            </div>
+            
+            <!-- HEADER COMPACTO -->
+            <div class="quiz-header-compact">
+                <svg class="quiz-icon-small" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="10"></circle>
                     <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
                     <line x1="12" y1="17" x2="12.01" y2="17"></line>
                 </svg>
-                Quizz de Ciberseguridad
-            </h1>
+                <h1 class="quiz-title-compact">Quizz de Ciberseguridad</h1>
+            </div>
             
-            <div class="quiz-container" data-aos="fade-up">
-                <!-- Pantalla de inicio -->
+            <div class="quiz-container quiz-container-compact" data-aos="fade-up">
+                <!-- Pantalla de inicio COMPACTA -->
                 <div id="start-screen" class="quiz-screen active">
-                    <div class="quiz-intro">
+                    <div class="quiz-intro quiz-intro-compact">
                         <h2>¿Listo para el desafío?</h2>
-                        <p>Este quizz progresivo te llevará a través de 3 niveles de dificultad con preguntas sobre los conceptos fundamentales de ciberseguridad:</p>
-                        <ul class="quiz-rules">
-                            <li>
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00ff41" stroke-width="2">
+                        <p class="quiz-description-short">20 preguntas en 3 niveles de dificultad</p>
+                        
+                        <div class="quiz-levels-compact">
+                            <div class="level-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00ff41" stroke-width="2">
                                     <circle cx="12" cy="12" r="10"></circle>
                                 </svg>
-                                <strong>Nivel Principiante:</strong> 5 preguntas sobre conceptos básicos de seguridad
-                            </li>
-                            <li>
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffeb3b" stroke-width="2">
+                                <span>5 Principiante</span>
+                            </div>
+                            <div class="level-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffeb3b" stroke-width="2">
                                     <circle cx="12" cy="12" r="10"></circle>
                                 </svg>
-                                <strong>Nivel Intermedio:</strong> 7 preguntas de dificultad media sobre herramientas y técnicas
-                            </li>
-                            <li>
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff0066" stroke-width="2">
+                                <span>7 Intermedio</span>
+                            </div>
+                            <div class="level-item">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff0066" stroke-width="2">
                                     <circle cx="12" cy="12" r="10"></circle>
                                 </svg>
-                                <strong>Nivel Avanzado:</strong> 8 preguntas desafiantes sobre tecnologías y estrategias avanzadas
-                            </li>
-                        </ul>
-                        <p style="margin-top: 20px;">Total: <strong>20 preguntas</strong></p>
-                        <p style="margin-top: 10px; color: #00ffff; font-size: 14px;">Temas: VPN, Phishing, Malware, Criptografía, Pentesting, DDoS, SIEM, SQL Injection y más...</p>
-                        <button class="quiz-btn-start" onclick="startQuiz()">Comenzar Quizz</button>
+                                <span>8 Avanzado</span>
+                            </div>
+                        </div>
+                        
+                        <button class="quiz-btn-start quiz-btn-start-compact" onclick="startQuiz()">
+                            COMENZAR QUIZZ
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </button>
                     </div>
                 </div>
 
-                <!-- Pantalla de preguntas -->
+                <!-- Pantalla de preguntas COMPACTA -->
                 <div id="quiz-questions" class="quiz-screen">
-                    <div class="quiz-progress">
-                        <span id="level-badge" class="level-badge">Nivel: Principiante</span>
-                        <div class="progress-bar">
+                    <div class="quiz-progress quiz-progress-compact">
+                        <div class="progress-header">
+                            <span id="level-badge" class="level-badge level-badge-compact">PRINCIPIANTE</span>
+                            <span class="progress-text progress-text-compact">Pregunta <span id="current-question">1</span>/20</span>
+                        </div>
+                        <div class="progress-bar progress-bar-compact">
                             <div id="progress-fill" class="progress-fill"></div>
                         </div>
-                        <p class="progress-text">Pregunta <span id="current-question">1</span> de 20</p>
                     </div>
 
-                    <!-- RECUADRO PARA LA PREGUNTA -->
-                    <div class="pregunta-container">
-                        <p class="pregunta-numero">Pregunta <span id="current-question-num">1</span> de 20</p>
-                        <h3 id="question-text" class="question-text"></h3>
+                    <div class="pregunta-container pregunta-container-compact">
+                        <h3 id="question-text" class="question-text question-text-compact"></h3>
                     </div>
 
-                    <div id="answers-container" class="answers-container"></div>
+                    <div id="answers-container" class="answers-container answers-container-compact"></div>
 
-                    <div class="quiz-feedback" id="quiz-feedback"></div>
+                    <div class="quiz-feedback quiz-feedback-compact" id="quiz-feedback"></div>
                 </div>
+
                 <!-- Pantalla de resultados -->
                 <div id="quiz-results" class="quiz-screen">
                     <div class="results-container">
-                        <h2>¡Quizz Completado! 
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle;">
-                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                            </svg>
-                        </h2>
+                        <div class="results-icon">🏆</div>
+                        <h2>¡Quizz Completado!</h2>
                         <div class="score-display">
                             <div class="score-circle">
                                 <span id="final-score">0</span>
@@ -646,7 +967,7 @@
                         <div class="level-summary">
                             <div class="level-box">
                                 <h3>
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00ff41" stroke-width="2" style="display: inline-block; vertical-align: middle;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00ff41" stroke-width="2">
                                         <circle cx="12" cy="12" r="10"></circle>
                                     </svg>
                                     Principiante
@@ -655,7 +976,7 @@
                             </div>
                             <div class="level-box">
                                 <h3>
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffeb3b" stroke-width="2" style="display: inline-block; vertical-align: middle;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffeb3b" stroke-width="2">
                                         <circle cx="12" cy="12" r="10"></circle>
                                     </svg>
                                     Intermedio
@@ -664,7 +985,7 @@
                             </div>
                             <div class="level-box">
                                 <h3>
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff0066" stroke-width="2" style="display: inline-block; vertical-align: middle;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff0066" stroke-width="2">
                                         <circle cx="12" cy="12" r="10"></circle>
                                     </svg>
                                     Avanzado
@@ -675,14 +996,14 @@
                         
                         <div class="results-actions">
                             <button class="quiz-btn" onclick="restartQuiz()">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <polyline points="23 4 23 10 17 10"></polyline>
                                     <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
                                 </svg>
                                 Reintentar
                             </button>
                             <button class="quiz-btn secondary" onclick="showPage('home')">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                                     <polyline points="9 22 9 12 15 12 15 22"></polyline>
                                 </svg>
