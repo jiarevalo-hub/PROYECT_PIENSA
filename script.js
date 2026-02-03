@@ -244,6 +244,33 @@ function showPage(pageId) {
         AOS.refresh();
     }, 100);
 }
+
+// ==================== MENÚ COLAPSABLE ====================
+function toggleMenu(event) {
+    event.preventDefault();
+    
+    const menuToggle = document.querySelector('.menu-toggle');
+    const menuDropdown = document.querySelector('.menu-dropdown');
+    
+    menuToggle.classList.toggle('active');
+    menuDropdown.classList.toggle('active');
+}
+
+// Cerrar menú al hacer clic en una opción
+document.addEventListener('DOMContentLoaded', () => {
+    const menuItems = document.querySelectorAll('.menu-dropdown a');
+    menuItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const menuDropdown = document.querySelector('.menu-dropdown');
+            if (menuToggle && menuDropdown) {
+                menuToggle.classList.remove('active');
+                menuDropdown.classList.remove('active');
+            }
+        });
+    });
+});
+
 // ==================== BÚSQUEDA FUNCIONAL CON SCROLL AUTOMÁTICO ====================
 
 const searchableContent = [
@@ -511,7 +538,8 @@ document.addEventListener('keydown', (e) => {
         }
     }
 });
-// ==================== QUIZ FUNCTIONALITY - PREGUNTAS AMPLIADAS ====================
+
+// ==================== QUIZ FUNCTIONALITY - PREGUNTAS CORREGIDAS ====================
 
 const questions = [
     // ===== NIVEL PRINCIPIANTE (5 preguntas) =====
@@ -666,6 +694,7 @@ let currentQuestion = 0;
 let score = 0;
 let levelScores = { "Principiante": 0, "Intermedio": 0, "Avanzado": 0 };
 let levelTotals = { "Principiante": 5, "Intermedio": 7, "Avanzado": 8 };
+
 // ==================== FUNCIONES DEL QUIZZ ====================
 
 function startQuiz() {
@@ -682,26 +711,28 @@ function startQuiz() {
 function showQuestion() {
     const q = questions[currentQuestion];
     
-    document.getElementById('level-badge').textContent = 'Nivel: ' + q.level;
+    document.getElementById('level-badge').textContent = 'NIVEL: ' + q.level.toUpperCase();
     
     // Cambiar color del badge según el nivel
     const badge = document.getElementById('level-badge');
     if (q.level === "Principiante") {
         badge.style.borderColor = "#00ff41";
         badge.style.color = "#00ff41";
+        badge.style.backgroundColor = "rgba(0, 255, 65, 0.1)";
         badge.style.textShadow = "0 0 10px #00ff41";
     } else if (q.level === "Intermedio") {
         badge.style.borderColor = "#ffeb3b";
         badge.style.color = "#ffeb3b";
+        badge.style.backgroundColor = "rgba(255, 235, 59, 0.1)";
         badge.style.textShadow = "0 0 10px #ffeb3b";
     } else {
         badge.style.borderColor = "#ff0066";
         badge.style.color = "#ff0066";
+        badge.style.backgroundColor = "rgba(255, 0, 102, 0.1)";
         badge.style.textShadow = "0 0 10px #ff0066";
     }
     
     document.getElementById('current-question').textContent = currentQuestion + 1;
-    document.getElementById('current-question-num').textContent = currentQuestion + 1;
     document.getElementById('progress-fill').style.width = ((currentQuestion + 1) / questions.length * 100) + '%';
     
     document.getElementById('question-text').textContent = q.question;
@@ -735,14 +766,14 @@ function selectAnswer(index) {
     
     if (index === q.correct) {
         answers[index].classList.add('correct');
-        feedback.className = 'quiz-feedback correct show';
+        feedback.className = 'quiz-feedback quiz-feedback-compact correct show';
         feedback.innerHTML = '<strong><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> ¡Correcto!</strong><br><br>' + q.explanation;
         score++;
         levelScores[q.level]++;
     } else {
         answers[index].classList.add('incorrect');
         answers[q.correct].classList.add('correct');
-        feedback.className = 'quiz-feedback incorrect show';
+        feedback.className = 'quiz-feedback quiz-feedback-compact incorrect show';
         feedback.innerHTML = '<strong><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle;"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg> Incorrecto.</strong><br><br>' + q.explanation;
     }
     
@@ -800,238 +831,9 @@ function restartQuiz() {
     document.getElementById('start-screen').classList.add('active');
     window.scrollTo(0, 0);
 }
-// ==================== UTILIDADES ADICIONALES ====================
 
-// Prevenir el envío accidental de formularios
-document.addEventListener('submit', (e) => {
-    const form = e.target;
-    if (!form.hasAttribute('onsubmit')) {
-        e.preventDefault();
-    }
-});
-
-// Scroll suave para navegación
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-// Detectar inactividad del usuario
-let inactivityTimer;
-function resetInactivityTimer() {
-    clearTimeout(inactivityTimer);
-    inactivityTimer = setTimeout(() => {
-        console.log('Usuario inactivo por 5 minutos');
-    }, 300000); // 5 minutos
-}
-
-document.addEventListener('mousemove', resetInactivityTimer);
-document.addEventListener('keypress', resetInactivityTimer);
-document.addEventListener('click', resetInactivityTimer);
-document.addEventListener('scroll', resetInactivityTimer);
-
-resetInactivityTimer();
-
-// Mensaje de consola personalizado
+// ==================== CONSOLE MESSAGES ====================
 console.log('%c🔐 C.I.T. - Cybersecurity Intelligence Training', 'color: #00ff41; font-size: 20px; font-weight: bold; text-shadow: 0 0 10px #00ff41;');
 console.log('%c⚠️ ADVERTENCIA: Esta es una zona de entrenamiento en ciberseguridad', 'color: #00ffff; font-size: 14px;');
 console.log('%c🛡️ Mantén tu información segura y nunca compartas tus credenciales', 'color: #ff00ff; font-size: 12px;');
-console.log('%c✨ AOS Library Cargada - Animaciones habilitadas', 'color: #00ff41; font-size: 12px;');
-
-// Función para verificar la conexión a internet
-function checkConnection() {
-    if (!navigator.onLine) {
-        const offlineMessage = document.createElement('div');
-        offlineMessage.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, rgba(255, 0, 100, 0.9), rgba(255, 0, 100, 0.7));
-            border: 2px solid #ff0066;
-            color: #fff;
-            padding: 15px 25px;
-            border-radius: 8px;
-            z-index: 10000;
-            font-family: 'Courier New', monospace;
-            box-shadow: 0 0 20px rgba(255, 0, 100, 0.5);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        `;
-        offlineMessage.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Sin conexión a Internet';
-        document.body.appendChild(offlineMessage);
-        
-        setTimeout(() => {
-            offlineMessage.remove();
-        }, 5000);
-    }
-}
-
-window.addEventListener('online', () => {
-    console.log('✅ Conexión restaurada');
-});
-
-window.addEventListener('offline', () => {
-    checkConnection();
-});
-
-// Easter egg - Konami Code
-let konamiCode = [];
-const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-
-document.addEventListener('keydown', (e) => {
-    konamiCode.push(e.key);
-    konamiCode = konamiCode.slice(-10);
-    
-    if (konamiCode.join(',') === konamiSequence.join(',')) {
-        console.log('%c🎮 ¡CÓDIGO KONAMI ACTIVADO!', 'color: #00ff41; font-size: 30px; font-weight: bold;');
-        console.log('%c🏆 ¡Felicidades, has desbloqueado el Easter Egg!', 'color: #00ffff; font-size: 16px;');
-        
-        // Efecto visual especial
-        document.body.style.animation = 'hue-rotate 2s linear';
-        setTimeout(() => {
-            document.body.style.animation = '';
-        }, 2000);
-        
-        // Mostrar mensaje especial
-        const easterEggMsg = document.createElement('div');
-        easterEggMsg.style.cssText = `
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(10, 10, 26, 0.95));
-            border: 3px solid;
-            border-image: linear-gradient(45deg, #00ff41, #00ffff, #ff00ff) 1;
-            color: #00ff41;
-            padding: 40px;
-            border-radius: 15px;
-            z-index: 10000;
-            font-family: 'Courier New', monospace;
-            text-align: center;
-            box-shadow: 0 0 50px rgba(0, 255, 255, 0.8);
-            font-size: 24px;
-            font-weight: bold;
-        `;
-        easterEggMsg.innerHTML = '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: block; margin: 0 auto 20px;"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>¡CÓDIGO KONAMI!<br>🏆 EASTER EGG DESBLOQUEADO';
-        document.body.appendChild(easterEggMsg);
-        
-        setTimeout(() => {
-            easterEggMsg.remove();
-        }, 3000);
-    }
-});
-
-// Función de limpieza al cerrar la página
-window.addEventListener('beforeunload', () => {
-    console.log('👋 Hasta pronto, agente de ciberseguridad');
-});
-
-// Verificar rendimiento de la página
-window.addEventListener('load', () => {
-    const loadTime = performance.now();
-    console.log(`⚡ Página cargada en ${loadTime.toFixed(2)}ms`);
-    
-    if (loadTime > 3000) {
-        console.warn('⚠️ El tiempo de carga es alto. Considera optimizar recursos.');
-    }
-});
-
-// Debug mode (solo en desarrollo)
-const DEBUG_MODE = false; // Cambiar a true para habilitar logs de debug
-
-function debugLog(message, data = null) {
-    if (DEBUG_MODE) {
-        console.log(`🐛 [DEBUG] ${message}`, data || '');
-    }
-}
-
-debugLog('Sistema de debugging inicializado');
-debugLog('Preguntas del quiz cargadas', questions.length);
-debugLog('Contenido de búsqueda cargado', searchableContent.length);
-
-// Prevenir errores comunes
-window.addEventListener('error', (e) => {
-    if (DEBUG_MODE) {
-        console.error('❌ Error detectado:', e.message);
-    }
-});
-
-// Smooth scroll global
-document.documentElement.style.scrollBehavior = 'smooth';
-
-// Protección básica contra inyección de scripts en búsqueda
-function sanitizeInput(input) {
-    const div = document.createElement('div');
-    div.textContent = input;
-    return div.innerHTML;
-}
-
-// Mejorar accesibilidad con indicadores de foco
-document.addEventListener('DOMContentLoaded', () => {
-    const focusableElements = document.querySelectorAll('button, a, input, [tabindex]:not([tabindex="-1"])');
-    
-    focusableElements.forEach(element => {
-        element.addEventListener('focus', function() {
-            this.style.outline = '2px solid #00ffff';
-            this.style.outlineOffset = '2px';
-        });
-        
-        element.addEventListener('blur', function() {
-            this.style.outline = '';
-            this.style.outlineOffset = '';
-        });
-    });
-});
-
-// Notificación de características del navegador
-if (!('IntersectionObserver' in window)) {
-    console.warn('⚠️ Tu navegador no soporta IntersectionObserver. Algunas animaciones pueden no funcionar.');
-}
-
-if (!navigator.clipboard) {
-    console.warn('⚠️ Tu navegador no soporta la API de Clipboard. La función de copiar puede no funcionar correctamente.');
-}
-
-// Auto-guardar progreso del quiz en sessionStorage (temporal)
-function saveQuizProgress() {
-    if (currentQuestion > 0) {
-        sessionStorage.setItem('quizProgress', JSON.stringify({
-            currentQuestion: currentQuestion,
-            score: score,
-            levelScores: levelScores
-        }));
-    }
-}
-
-function loadQuizProgress() {
-    const saved = sessionStorage.getItem('quizProgress');
-    if (saved) {
-        const progress = JSON.parse(saved);
-        if (confirm('¿Deseas continuar con tu quiz anterior?')) {
-            currentQuestion = progress.currentQuestion;
-            score = progress.score;
-            levelScores = progress.levelScores;
-            return true;
-        }
-    }
-    return false;
-}
-
-// Limpiar progreso del quiz al completarlo
-function clearQuizProgress() {
-    sessionStorage.removeItem('quizProgress');
-}
-
-// Inicialización final
-console.log('%c✅ Sistema C.I.T. completamente cargado y operativo', 'color: #00ff41; font-size: 14px; font-weight: bold;');
-console.log('%c🚀 Versión: 2.5 - AOS Library Implementada', 'color: #00ffff; font-size: 12px;');
-console.log('%c🔧 Funcionalidades: Búsqueda mejorada, Animaciones AOS, Navegación fluida', 'color: #ff00ff; font-size: 12px;');
+console.log('%c✨ Sistema cargado correctamente - Menú colapsable activo', 'color: #00ff41; font-size: 12px;');
